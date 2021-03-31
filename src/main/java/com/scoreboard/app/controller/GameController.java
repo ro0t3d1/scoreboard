@@ -3,6 +3,7 @@ package com.scoreboard.app.controller;
 import com.scoreboard.app.dto.GameDto;
 import com.scoreboard.app.dto.GameMapper;
 import com.scoreboard.app.repository.Game;
+import com.scoreboard.app.service.CommentService;
 import com.scoreboard.app.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,13 @@ public class GameController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GameDto>> getAllGames(@RequestParam(required = false) String date) {
-        List<Game> games = gameService.getGames(date);
+    public ResponseEntity<List<GameDto>> getGames(@RequestParam(required = false) String date) {
+        List<Game> games = gameService.getGamesByDate(date);
         return ResponseEntity.ok(gameMapper.gamesToGamesDto(games));
     }
 
     @GetMapping(path = "{gameId}")
-    public ResponseEntity<GameDto> getAllGames(@PathVariable Long gameId) {
+    public ResponseEntity<GameDto> getGame(@PathVariable Long gameId) {
         Game game = gameService.getGame(gameId);
         return ResponseEntity.ok(gameMapper.gameToGameDto(game));
     }

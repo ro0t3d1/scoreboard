@@ -5,12 +5,13 @@ import lombok.Getter;
 @Getter
 public class ApplicationException extends RuntimeException {
 
-    // TODO: When resource bundle is created this variable will be used.
     private final String code;
+    private final Object[] args;
 
-    public ApplicationException(String code, String message) {
-        super(message);
+    public ApplicationException(String code, Object... args) {
+        super();
         this.code = code;
+        this.args = args;
     }
 
 }

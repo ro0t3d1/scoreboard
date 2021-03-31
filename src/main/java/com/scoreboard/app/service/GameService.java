@@ -8,6 +8,6 @@ public interface GameService {
 
     Game getGame(Long id);
 
-    List<Game> getGames(String date);
+    List<Game> getGamesByDate(String date);
 
 }

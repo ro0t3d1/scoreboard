@@ -1,0 +1,19 @@
+<ehcache:config
+        xmlns:ehcache="http://www.ehcache.org/v3"
+        xmlns:jcache="http://www.ehcache.org/v3/jsr107">
+
+    <ehcache:service>
+        <jcache:defaults enable-management="true" enable-statistics="true"/>
+    </ehcache:service>
+
+    <ehcache:cache alias="Games" uses-template="GameServiceCache">
+    </ehcache:cache>
+
+    <ehcache:cache-template name="GameServiceCache">
+        <ehcache:expiry>
+            <ehcache:tti unit="minutes">3600</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="MB">200</ehcache:heap>
+    </ehcache:cache-template>
+
+</ehcache:config>
