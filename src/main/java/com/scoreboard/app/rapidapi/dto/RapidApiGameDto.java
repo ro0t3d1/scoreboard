@@ -7,19 +7,13 @@ import lombok.Data;
 public class RapidApiGameDto {
 
     private Long id;
-
-    // TODO: This probably must be a ZoneDateTime.
     private String date;
-
     @JsonProperty(value = "home_team_score")
     private Integer homeTeamScore;
-
     @JsonProperty(value = "visitor_team_score")
     private Integer visitorTeamScore;
-
     @JsonProperty(value = "visitor_team")
     private RapidApiTeamDto visitorTeam;
-
     @JsonProperty(value = "home_team")
     private RapidApiTeamDto homeTeam;
 

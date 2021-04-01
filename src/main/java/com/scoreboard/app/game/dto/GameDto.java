@@ -1,12 +1,11 @@
-package com.scoreboard.app.dto;
+package com.scoreboard.app.game.dto;
 
 import lombok.Data;
 
 @Data
 public class GameDto {
 
-    private Long gameId;
-    // TODO: This probably must be a ZoneDateTime.
+    private Long id;
     private String date;
     private TeamDto homeTeam;
     private TeamDto visitorTeam;

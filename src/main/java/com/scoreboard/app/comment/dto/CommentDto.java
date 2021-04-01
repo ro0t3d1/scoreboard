@@ -1,4 +1,4 @@
-package com.scoreboard.app.dto;
+package com.scoreboard.app.comment.dto;
 
 import lombok.Data;
 

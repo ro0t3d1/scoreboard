@@ -1,10 +1,11 @@
-package com.scoreboard.app.controller;
+package com.scoreboard.app.game;
 
-import com.scoreboard.app.dto.GameDto;
-import com.scoreboard.app.dto.GameMapper;
-import com.scoreboard.app.repository.Game;
-import com.scoreboard.app.service.CommentService;
-import com.scoreboard.app.service.GameService;
+import com.scoreboard.app.game.dto.GameDto;
+import com.scoreboard.app.game.dto.GameMapper;
+import com.scoreboard.app.game.dto.GameStatDto;
+import com.scoreboard.app.game.repository.Game;
+import com.scoreboard.app.game.repository.GameStat;
+import com.scoreboard.app.game.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,12 @@ public class GameController {
     public ResponseEntity<GameDto> getGame(@PathVariable Long gameId) {
         Game game = gameService.getGame(gameId);
         return ResponseEntity.ok(gameMapper.gameToGameDto(game));
+    }
+
+    @GetMapping(path = "{gameId}/stats")
+    public ResponseEntity<List<GameStatDto>> getGameStats(@PathVariable Long gameId) {
+        List<GameStat> gameStats = gameService.getGameStats(gameId);
+        return ResponseEntity.ok(gameMapper.gameStatsToGameStatsDto(gameStats));
     }
 
 }

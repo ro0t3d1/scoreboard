@@ -2,7 +2,8 @@ package com.scoreboard.app.rapidapi;
 
 public enum RapidApiResource {
     GAMES("/games"),
-    GAME("/games/%d")
+    GAME("/games/%d"),
+    STATS("/stats"),
     ;
 
     private String path;

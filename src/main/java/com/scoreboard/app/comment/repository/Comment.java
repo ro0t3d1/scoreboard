@@ -1,4 +1,4 @@
-package com.scoreboard.app.repository;
+package com.scoreboard.app.comment.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,12 +22,14 @@ import java.time.ZonedDateTime;
 @Table(name = "COMMENTS")
 public class Comment {
 
+    public static final int MAXIMUM_TEXT_LENGTH = 500;
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @Column(name = "TEXT")
+    @Column(name = "TEXT", length = MAXIMUM_TEXT_LENGTH)
     private String text;
 
     @Column(name = "MODIFIED_DATE")

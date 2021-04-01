@@ -6,10 +6,20 @@
         <jcache:defaults enable-management="true" enable-statistics="true"/>
     </ehcache:service>
 
-    <ehcache:cache alias="Games" uses-template="GameServiceCache">
+    <ehcache:cache alias="Games" uses-template="GamesCache">
     </ehcache:cache>
 
-    <ehcache:cache-template name="GameServiceCache">
+    <ehcache:cache alias="GameStats" uses-template="GameStatsCache">
+    </ehcache:cache>
+
+    <ehcache:cache-template name="GamesCache">
+        <ehcache:expiry>
+            <ehcache:tti unit="minutes">3600</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="MB">400</ehcache:heap>
+    </ehcache:cache-template>
+
+    <ehcache:cache-template name="GameStatsCache">
         <ehcache:expiry>
             <ehcache:tti unit="minutes">3600</ehcache:tti>
         </ehcache:expiry>

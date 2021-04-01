@@ -1,6 +1,6 @@
-package com.scoreboard.app.dto;
+package com.scoreboard.app.comment.dto;
 
-import com.scoreboard.app.repository.Comment;
+import com.scoreboard.app.comment.repository.Comment;
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 

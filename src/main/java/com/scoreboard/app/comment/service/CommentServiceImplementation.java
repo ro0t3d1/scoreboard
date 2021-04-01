@@ -1,10 +1,11 @@
-package com.scoreboard.app.service;
+package com.scoreboard.app.comment.service;
 
 import com.google.common.base.Strings;
 import com.scoreboard.app.exception.ApplicationException;
 import com.scoreboard.app.exception.ResourceNotFoundException;
-import com.scoreboard.app.repository.Comment;
-import com.scoreboard.app.repository.CommentRepository;
+import com.scoreboard.app.game.service.GameService;
+import com.scoreboard.app.comment.repository.Comment;
+import com.scoreboard.app.game.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +44,7 @@ public class CommentServiceImplementation implements CommentService {
 
     @Override
     public Comment createComment(Comment comment) {
-        validateGameCommentOnCreation(comment);
+        validateCommentOnCreation(comment);
         comment.setId(null);
         comment.setModifiedDate(ZonedDateTime.now());
         return commentRepository.save(comment);
@@ -64,12 +65,15 @@ public class CommentServiceImplementation implements CommentService {
         commentRepository.delete(comment);
     }
 
-    private void validateGameCommentOnCreation(Comment comment) {
+    private void validateCommentOnCreation(Comment comment) {
         if (Strings.isNullOrEmpty(comment.getText())) {
             throw new ApplicationException("parameter.mandatory", "text");
         }
         if (comment.getGameId() == null) {
             throw new ApplicationException("parameter.mandatory", "gameId");
+        }
+        if (comment.getText().length() > Comment.MAXIMUM_TEXT_LENGTH) {
+            throw new ApplicationException("parameter.toLong", "text", Comment.MAXIMUM_TEXT_LENGTH);
         }
         // Only required  to validate if game exists.
         gameService.getGame(comment.getGameId());

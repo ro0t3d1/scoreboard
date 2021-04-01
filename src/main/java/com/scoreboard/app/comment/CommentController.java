@@ -1,12 +1,11 @@
-package com.scoreboard.app.controller;
+package com.scoreboard.app.comment;
 
-import com.scoreboard.app.dto.CommentDto;
-import com.scoreboard.app.dto.CommentMapper;
-import com.scoreboard.app.dto.GameDto;
-import com.scoreboard.app.repository.Comment;
-import com.scoreboard.app.repository.Game;
-import com.scoreboard.app.service.CommentService;
-import com.scoreboard.app.util.CommentSpecification;
+import com.scoreboard.app.comment.dto.CommentDto;
+import com.scoreboard.app.comment.dto.CommentMapper;
+import com.scoreboard.app.comment.repository.Comment;
+import com.scoreboard.app.comment.service.CommentService;
+import com.scoreboard.app.comment.util.CommentSpecification;
+import com.scoreboard.app.util.PagedResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,12 +41,12 @@ public class CommentController {
     }
 
     @GetMapping(path = "/comment")
-    public ResponseEntity<Page<CommentDto>> getComments(
+    public ResponseEntity<PagedResponse<CommentDto>> getComments(
             @RequestParam(required = false) Long gameId,
             @PageableDefault(sort = {DEFAULT_SORT_PARAMETER}, direction = Sort.Direction.DESC, page = DEFAULT_PAGE, value = DEFAULT_PAGE_SIZE)
                     Pageable pageable) {
         Page<Comment> comments = commentService.getComments(CommentSpecification.of(gameId), pageable);
-        return ResponseEntity.ok(commentMapper.commentsToCommentsDto(comments));
+        return ResponseEntity.ok(PagedResponse.of(commentMapper.commentsToCommentsDto(comments)));
     }
 
     @PostMapping(path = "/comment")
@@ -75,7 +74,7 @@ public class CommentController {
     }
 
     @GetMapping(path = "/game/{gameId}/comment")
-    public ResponseEntity<Page<CommentDto>> getGameComments(
+    public ResponseEntity<PagedResponse<CommentDto>> getGameComments(
             @PathVariable Long gameId,
             @PageableDefault(sort = {DEFAULT_SORT_PARAMETER}, direction = Sort.Direction.DESC, page = DEFAULT_PAGE, value = DEFAULT_PAGE_SIZE)
                     Pageable pageable) {

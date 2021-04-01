@@ -1,6 +1,6 @@
-package com.scoreboard.app.util;
+package com.scoreboard.app.comment.util;
 
-import com.scoreboard.app.repository.Comment;
+import com.scoreboard.app.comment.repository.Comment;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;

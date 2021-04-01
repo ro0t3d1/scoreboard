@@ -10,7 +10,7 @@ public class RapidApiResourcesFactory {
     @Autowired
     private RapidApiConfiguration rapidApiConfiguration;
 
-    public String createResourceUrl(String path) {
+    String createResourceUrl(String path) {
         return String.format("https://%s%s",
                 rapidApiConfiguration.getRapidApiHost(),
                 path

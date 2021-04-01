@@ -1,4 +1,4 @@
-package com.scoreboard.app.dto;
+package com.scoreboard.app.exception;
 
 import lombok.Builder;
 import lombok.Getter;
