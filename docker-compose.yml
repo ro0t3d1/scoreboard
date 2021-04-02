@@ -1,0 +1,49 @@
+version: '3.3'
+networks:
+  backend:
+    driver: bridge
+volumes:
+  postgresql-data:
+    driver: local
+services:
+  app:
+    image: scoreboard-app:latest
+    container_name: scoreboard-app
+    ports:
+    - "8080:8080"
+    networks:
+    - backend
+    depends_on:
+    - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db/scoreboarddb
+      SPRING_DATASOURCE_USERNAME: scoreboardadmin
+      SPRING_DATASOURCE_PASSWORD: scoreboardpassword
+      RAPIDAPI_KEY: c3a873d008msh448a9b0fb0dae46p112547jsn0e258872a335
+      SCOREBOARD_SECURITY_USERNAME: scoreboard
+      SCOREBOARD_SECURITY_PASSWORD: scoreboard
+    healthcheck:
+      test: curl -f http://localhost:8088/scoreboard/rest/v1/metrics/health || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 2
+  db:
+    image: scoreboard-db:latest
+    container_name: scoreboard-db
+    restart: always
+    volumes:
+    - postgresql-data:/var/lib/postgresql/data
+    networks:
+    - backend
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_USER: scoreboardadmin
+      POSTGRES_PASSWORD: scoreboardpassword
+      POSTGRES_DB: scoreboarddb
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: pg_isready -U scoreboardadmin
+      interval: 1m
+      timeout: 10s
+      retries: 2

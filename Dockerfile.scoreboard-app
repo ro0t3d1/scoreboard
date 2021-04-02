@@ -1,0 +1,7 @@
+FROM openjdk:8-jdk-alpine
+EXPOSE 8080
+ADD target/scoreboard.jar /opt/scoreboard/share/scoreboard.jar
+ADD src/main/resources/application.properties /opt/scoreboard/conf/application.properties
+ADD src/main/resources/cache/ehcache.xml /opt/scoreboard/conf/ehcache.xml
+ADD src/main/resources/logback-spring.xml /opt/scoreboard/conf/logback-spring.xml
+ENTRYPOINT ["java","-jar","/opt/scoreboard/share/scoreboard.jar", "--spring.config.location=/opt/scoreboard/conf/application.properties"]

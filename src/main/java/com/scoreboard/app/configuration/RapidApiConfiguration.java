@@ -3,6 +3,7 @@ package com.scoreboard.app.configuration;
 import com.scoreboard.app.rapidapi.interceptor.RapidApiAuthenticationInterceptor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,6 @@ import java.time.Duration;
 
 @Data
 @Configuration
-@ConfigurationProperties(value = "rapidapi")
 public class RapidApiConfiguration {
 
     private static final String RAPID_API_HOST = "free-nba.p.rapidapi.com";

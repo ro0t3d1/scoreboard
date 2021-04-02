@@ -1,0 +1,2 @@
+FROM postgres:12.3
+ADD src/main/resources/db/pgsql/schema.sql /docker-entrypoint-initdb.d/100-scoreboard-init.sql

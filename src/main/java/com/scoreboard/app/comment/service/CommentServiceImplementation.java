@@ -5,7 +5,7 @@ import com.scoreboard.app.exception.ApplicationException;
 import com.scoreboard.app.exception.ResourceNotFoundException;
 import com.scoreboard.app.game.service.GameService;
 import com.scoreboard.app.comment.repository.Comment;
-import com.scoreboard.app.game.repository.CommentRepository;
+import com.scoreboard.app.comment.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
