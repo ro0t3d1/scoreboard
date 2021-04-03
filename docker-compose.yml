@@ -24,7 +24,7 @@ services:
       SCOREBOARD_SECURITY_PASSWORD: scoreboard
       SWAGGER_ENABLED: "true"
     healthcheck:
-      test: curl -f http://localhost:8088/scoreboard/rest/v1/metrics/health || exit 1
+      test: curl -f http://localhost:8080/scoreboard/rest/v1/metrics/health || exit 1
       interval: 1m
       timeout: 10s
       retries: 2
