@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GameStat implements Serializable {
+public class PlayerStat implements Serializable {
 
-    private Game game;
-    private List<PlayerStat> playerStats;
+    private String playerName;
+    private Integer playerScore;
+
 }

@@ -13,19 +13,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Game implements Serializable {
 
     private Long id;
-
     private String date;
-
     private String homeTeamName;
-
     private Integer homeTeamScore;
-
     private String visitorTeamName;
-
     private Integer visitorTeamScore;
 
 }

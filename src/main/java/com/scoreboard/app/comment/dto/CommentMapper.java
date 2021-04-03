@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CommentMapper {
 
     CommentDto commentToCommentDto(Comment comment);

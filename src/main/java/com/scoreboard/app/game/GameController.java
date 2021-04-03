@@ -6,6 +6,7 @@ import com.scoreboard.app.game.dto.GameStatDto;
 import com.scoreboard.app.game.repository.Game;
 import com.scoreboard.app.game.repository.GameStat;
 import com.scoreboard.app.game.service.GameService;
+import com.scoreboard.app.game.service.GameStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +21,15 @@ import java.util.List;
 @RequestMapping("game")
 public class GameController {
 
+    private final GameStatsService gameStatsService;
     private final GameService gameService;
     private final GameMapper gameMapper;
 
     @Autowired
-    public GameController(GameService gameService, GameMapper gameMapper) {
+    public GameController(GameService gameService, GameMapper gameMapper, GameStatsService gameStatsService) {
         this.gameService = gameService;
         this.gameMapper = gameMapper;
+        this.gameStatsService = gameStatsService;
     }
 
     @GetMapping
@@ -42,9 +45,9 @@ public class GameController {
     }
 
     @GetMapping(path = "{gameId}/stats")
-    public ResponseEntity<List<GameStatDto>> getGameStats(@PathVariable Long gameId) {
-        List<GameStat> gameStats = gameService.getGameStats(gameId);
-        return ResponseEntity.ok(gameMapper.gameStatsToGameStatsDto(gameStats));
+    public ResponseEntity<GameStatDto> getGameStats(@PathVariable Long gameId) {
+        GameStat gameStat = gameStatsService.getGameStats(gameId);
+        return ResponseEntity.ok(gameMapper.gameStatToGameStatDto(gameStat));
     }
 
 }

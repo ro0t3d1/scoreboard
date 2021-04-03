@@ -7,8 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class RapidApiResourcesFactory {
 
+    private final RapidApiConfiguration rapidApiConfiguration;
+
     @Autowired
-    private RapidApiConfiguration rapidApiConfiguration;
+    public RapidApiResourcesFactory(RapidApiConfiguration rapidApiConfiguration) {
+        this.rapidApiConfiguration = rapidApiConfiguration;
+    }
 
     String createResourceUrl(String path) {
         return String.format("https://%s%s",

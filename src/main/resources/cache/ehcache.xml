@@ -14,14 +14,14 @@
 
     <ehcache:cache-template name="GamesCache">
         <ehcache:expiry>
-            <ehcache:tti unit="minutes">3600</ehcache:tti>
+            <ehcache:tti unit="minutes">60</ehcache:tti>
         </ehcache:expiry>
         <ehcache:heap unit="MB">400</ehcache:heap>
     </ehcache:cache-template>
 
     <ehcache:cache-template name="GameStatsCache">
         <ehcache:expiry>
-            <ehcache:tti unit="minutes">3600</ehcache:tti>
+            <ehcache:tti unit="minutes">60</ehcache:tti>
         </ehcache:expiry>
         <ehcache:heap unit="MB">200</ehcache:heap>
     </ehcache:cache-template>

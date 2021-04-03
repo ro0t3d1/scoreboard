@@ -63,12 +63,16 @@ public class RapidApiHttpClient {
 
     private <T> List<T> getPaginatedResponse(String url, ParameterizedTypeReference<RapidApiPagedResponseDto<T>> typeReference) {
         List<T> results = new ArrayList<>();
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url);
         int pageCount = 0;
         RapidApiPagedResponseDto<T> responseEntity;
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url);
         do {
             uriBuilder.queryParam("page", String.valueOf(++pageCount));
-            responseEntity = restTemplate.exchange(uriBuilder.build(false).toUriString(), HttpMethod.GET, HttpEntity.EMPTY, typeReference).getBody();
+            responseEntity = restTemplate.exchange(
+                    uriBuilder.build(false).toUriString(),
+                    HttpMethod.GET,
+                    HttpEntity.EMPTY,
+                    typeReference).getBody();
             if (responseEntity != null && responseEntity.getData() != null && !responseEntity.getData().isEmpty()) {
                 results.addAll(responseEntity.getData());
             }

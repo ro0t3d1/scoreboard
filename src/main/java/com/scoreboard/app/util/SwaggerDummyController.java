@@ -1,5 +1,6 @@
-package com.scoreboard.app.configuration;
+package com.scoreboard.app.util;
 
+import com.scoreboard.app.configuration.SpringFoxConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;

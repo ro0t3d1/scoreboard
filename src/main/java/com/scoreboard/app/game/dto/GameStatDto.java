@@ -2,10 +2,11 @@ package com.scoreboard.app.game.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class GameStatDto {
 
-    private String playerName;
-    private String playerScore;
-
+    private GameDto game;
+    private List<PlayerStatDto> playerStats;
 }

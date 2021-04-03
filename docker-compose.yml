@@ -19,9 +19,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db/scoreboarddb
       SPRING_DATASOURCE_USERNAME: scoreboardadmin
       SPRING_DATASOURCE_PASSWORD: scoreboardpassword
-      RAPIDAPI_KEY: c3a873d008msh448a9b0fb0dae46p112547jsn0e258872a335
+      RAPIDAPI_KEY: INSERT_KEY_HERE
       SCOREBOARD_SECURITY_USERNAME: scoreboard
       SCOREBOARD_SECURITY_PASSWORD: scoreboard
+      SWAGGER_ENABLED: "true"
     healthcheck:
       test: curl -f http://localhost:8088/scoreboard/rest/v1/metrics/health || exit 1
       interval: 1m

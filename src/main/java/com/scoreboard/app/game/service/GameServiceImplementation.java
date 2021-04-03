@@ -4,10 +4,8 @@ import com.google.common.base.Strings;
 import com.scoreboard.app.exception.ApplicationException;
 import com.scoreboard.app.exception.ResourceNotFoundException;
 import com.scoreboard.app.game.repository.Game;
-import com.scoreboard.app.game.repository.GameStat;
 import com.scoreboard.app.rapidapi.RapidApiHttpClient;
 import com.scoreboard.app.rapidapi.dto.RapidApiGameDto;
-import com.scoreboard.app.rapidapi.dto.RapidApiGameStatDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +24,12 @@ public class GameServiceImplementation implements GameService {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
+    private final RapidApiHttpClient rapidApiHttpClient;
+
     @Autowired
-    private RapidApiHttpClient rapidApiHttpClient;
+    public GameServiceImplementation(RapidApiHttpClient rapidApiHttpClient) {
+        this.rapidApiHttpClient = rapidApiHttpClient;
+    }
 
     @Override
     @Cacheable(cacheNames = "Games")
@@ -38,19 +39,6 @@ public class GameServiceImplementation implements GameService {
             throw new ResourceNotFoundException("game", gameId);
         }
         return createGameFromRapidApiGameDto(rapidApiGameDto.get());
-    }
-
-    @Override
-    @Cacheable(cacheNames = "GameStats")
-    public List<GameStat> getGameStats(Long gameId) {
-        List<GameStat> gameStats = new ArrayList<>();
-        for(RapidApiGameStatDto rapidApiGameStatDto : rapidApiHttpClient.getGameStats(gameId)) {
-            if (rapidApiGameStatDto.getPoints() != null && rapidApiGameStatDto.getPoints() != 0 &&
-                    rapidApiGameStatDto.getPlayer() != null && rapidApiGameStatDto.getPlayer().getId() != null) {
-                gameStats.add(createGameStatFromRapidApiGameStatDto(rapidApiGameStatDto));
-            }
-        }
-        return gameStats;
     }
 
     @Override
@@ -85,10 +73,4 @@ public class GameServiceImplementation implements GameService {
                 .build();
     }
 
-    private GameStat createGameStatFromRapidApiGameStatDto(RapidApiGameStatDto rapidApiGameStatDto) {
-        return GameStat.builder()
-                .playerName(String.format("%s %s", rapidApiGameStatDto.getPlayer().getFirstName(), rapidApiGameStatDto.getPlayer().getLastName()))
-                .playerScore(rapidApiGameStatDto.getPoints())
-                .build();
-    }
 }
